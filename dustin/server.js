@@ -10,11 +10,13 @@ const app = express();
 const mongoose = require('mongoose');
 const morgan = require('morgan');
 const errorHandler = require('./lib/errorhandler');
+const cors = require('cors');
 
 const dbPort = process.env.MONGOLAB_URI || 'mongodb://localhost/dev_db';
 mongoose.connect(dbPort);
 if (!(process.env.NODE_ENV === 'TEST')) app.use(morgan('dev'));
 
+app.use(cors());
 app.use(jsonPaser);
 
 app.use('/', routes);
